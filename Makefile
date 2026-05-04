@@ -8,7 +8,7 @@ GCC       = arm-none-eabi-gcc
 LD        = arm-none-eabi-ld
 READELF   = arm-none-eabi-readelf
 
-TARGET = main
+TARGET = 3.main
 
 # variable for linker scrtip, map file and the readelf output
 LD_SCRIPT   = $(TARGET).ld
@@ -16,7 +16,7 @@ LD_MAP      = $(TARGET).map
 READELF_OUT = $(TARGET).txt
 
 # object files our exploration depends on
-OBJ = main.o
+OBJ = $(TARGET).o
 
 # this is executed on running `make`
 all: $(READELF_OUT)
@@ -27,11 +27,17 @@ $(READELF_OUT): $(TARGET).elf
 	$(READELF) -a $^ > $@
 
 # output file
-main.elf: $(OBJ) $(LD_SCRIPT)
-	$(LD) -s -Bsymbolic -gc-sections -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
+$(TARGET).elf: $(OBJ) $(LD_SCRIPT)
+	# This discards objects not used
+	# $(LD) -s -Bsymbolic -gc-sections -T$(LD_SCRIPT) -static -Map=$(LD_MAP) -o $@ $(OBJ)
+	$(LD) -T$(LD_SCRIPT) -Map=$(LD_MAP) -o $@ $(OBJ)
+
 
 %.o: %.c
 	$(GCC) -Wall -nostdlib -fno-builtin -ffreestanding -c $<
 
 clean:
+	rm -f $(TARGET).o $(TARGET).elf $(TARGET).txt $(TARGET).map $(TARGET).log
+
+clean_all:
 	rm -f *.o *.elf *.txt *.map *.log
