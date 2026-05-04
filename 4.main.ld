@@ -7,23 +7,24 @@ MEMORY {
 
 SECTIONS {
     .text : {
-        4.main.o (.text)
-        4.globals.o (.text)
+        4.* (.text)
     } > SOME_NAME
 
     .data : {
-        4.main.o (.data)
-        4.globals.o (.data)
+        4.* (.data)
+    }  > SOME_NAME
+
+    .rodata : {
+        4.* (.data)
     }  > SOME_NAME
 
     .bss : {
-        4.main.o (.bss)
-        4.globals.o (.bss)
+        4.* (.bss)
     }  > SOME_NAME
 
     /* Discards whatever is not being used */
     /DISCARD/ : {
-        4.globals.o (*)
+        4.* (*)
     }
 
 
