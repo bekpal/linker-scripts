@@ -20,6 +20,11 @@ SECTIONS {
         5.* (.data)
     }  > RAM AT > ROM
 
+/* Explcitly include .bss, otherwise the below discard statement will discard it */
+    .bss : {
+        5.* (.bss)
+    } > RAM AT > ROM
+
 /* Linker can automatically put this also to RAM after data */
 /*
     .bss : {
