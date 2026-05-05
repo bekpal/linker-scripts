@@ -8,7 +8,7 @@ GCC       = arm-none-eabi-gcc
 LD        = arm-none-eabi-ld
 READELF   = arm-none-eabi-readelf
 
-TARGET = 4.main
+TARGET = 5.main
 
 # variable for linker scrtip, map file and the readelf output
 LD_SCRIPT   = $(TARGET).ld
@@ -16,7 +16,7 @@ LD_MAP      = $(TARGET).map
 READELF_OUT = $(TARGET).txt
 
 # object files our exploration depends on
-OBJ = $(TARGET).o 4.globals.o
+OBJ = $(TARGET).o 5.globals.o
 
 # this is executed on running `make`
 all: $(READELF_OUT)
