@@ -25,7 +25,9 @@ SECTIONS {
 
 /* Explcitly include .bss, otherwise the below discard statement will discard it */
     .bss : {
+        _bss_start_ = .;
         5.* (.bss)
+        _bss_end_ = .;
     } > RAM AT > RAM
 
 /* Linker can automatically put this also to RAM after data */

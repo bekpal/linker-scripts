@@ -21,3 +21,17 @@ void _load_data() {
         src++;
     }
 }
+
+extern char _bss_start_;
+extern char _bss_end_;
+
+void _clear_bss() {
+     /*char *src = _data_src_start_ ; */ // this is wront
+    char *dst = &_bss_start_ ; // & address should be used
+    char *dst_end = &_bss_end_;
+
+    while (dst != dst_end) {
+        *dst = 0xB5;
+        dst++;
+    }
+}
