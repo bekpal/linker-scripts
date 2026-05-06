@@ -9,21 +9,24 @@ MEMORY {
 SECTIONS {
     .text : {
         5.* (.text)
-    } > ROM
+    } > ROM AT > ROM
 
     .rodata : {
-        5.* (.data)
-    }  > ROM
+        5.* (.rodata)
+        _data_src_start_ = .;
+    }  > ROM AT > ROM
 
 /* Virtual address for ROM availabe at ROM */
     .data : {
+        _data_dst_start_ = .;
         5.* (.data)
+        _data_dst_end_ = .;
     }  > RAM AT > ROM
 
 /* Explcitly include .bss, otherwise the below discard statement will discard it */
     .bss : {
         5.* (.bss)
-    } > RAM AT > ROM
+    } > RAM AT > RAM
 
 /* Linker can automatically put this also to RAM after data */
 /*
