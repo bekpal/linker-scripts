@@ -7,7 +7,13 @@ MEMORY {
 /* 5 - placing to 2 memory banks RAM and ROM */
 
 SECTIONS {
+
+    .init : {
+        5.* (init_text)
+    }
+
     .text : {
+
         5.* (.text)
     } > ROM AT > ROM
 

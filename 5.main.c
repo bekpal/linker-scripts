@@ -9,7 +9,8 @@ extern char _data_src_start_;
 extern char _data_dst_start_;
 extern char _data_dst_end_;
 
-void _load_data() {
+
+void __attribute((section("init_text"))) _load_data() {
     /*char *src = _data_src_start_ ; */ // this is wront
     char *src = &_data_src_start_ ; // & address should be used
     char *dst = &_data_dst_start_ ;
@@ -25,7 +26,7 @@ void _load_data() {
 extern char _bss_start_;
 extern char _bss_end_;
 
-void _clear_bss() {
+void __attribute((section("init_text"))) _clear_bss() {
      /*char *src = _data_src_start_ ; */ // this is wront
     char *dst = &_bss_start_ ; // & address should be used
     char *dst_end = &_bss_end_;
